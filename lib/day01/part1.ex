@@ -5,7 +5,7 @@ defmodule AoC2020.Day01.Part1 do
 
   @impl AoC2020.Day
   def run(data) do
-    data |> Enum.map(&String.to_integer/1) |> find |> IO.puts
+    data |> Enum.map(&String.to_integer/1) |> find
   end
 
   def find(report) do
