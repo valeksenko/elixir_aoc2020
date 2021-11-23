@@ -5,12 +5,15 @@ defmodule AoC2020.Day04.Part1 do
 
   @impl AoC2020.Day
   def run(data) do
-    data |> Enum.chunk_by(&(&1 == "")) |> Enum.filter(&(&1 != [ "" ])) |> Enum.count(&valid_passport?/1)
+    data
+    |> Enum.chunk_by(&(&1 == ""))
+    |> Enum.filter(&(&1 != [""]))
+    |> Enum.count(&valid_passport?/1)
   end
 
   defp valid_passport?(entries) do
     keys = entries |> Enum.flat_map(&extract_keys/1)
-    (@required_fields -- keys) |> Enum.empty?
+    (@required_fields -- keys) |> Enum.empty?()
   end
 
   defp extract_keys(entry) do
