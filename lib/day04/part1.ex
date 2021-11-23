@@ -9,11 +9,11 @@ defmodule AoC2020.Day04.Part1 do
   end
 
   defp valid_passport?(entries) do
-    keys = entries |> Enum.flat_map(&extract_fields/1) |> Enum.map(&(elem(&1, 0)))
+    keys = entries |> Enum.flat_map(&extract_keys/1)
     (@required_fields -- keys) |> Enum.empty?
   end
 
-  defp extract_fields(entry) do
-    entry |> String.split(" ") |> Enum.map(fn f -> f |> String.split(":") |> List.to_tuple end)
+  defp extract_keys(entry) do
+    entry |> String.split(" ") |> Enum.map(fn f -> f |> String.split(":") |> hd end)
   end
 end
