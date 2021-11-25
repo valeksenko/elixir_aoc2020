@@ -15,14 +15,14 @@ defmodule AoC2020.Day07.Part1 do
   defp count(rules) do
     rules
     |> Map.delete(@bag)
-    |> Enum.count(fn {bag, content} -> contain?(rules, bag, [], content |> Map.keys) end)
+    |> Enum.count(fn {bag, content} -> contain?(rules, bag, [], content |> Map.keys()) end)
   end
 
   defp contain?(rules, bag, checked, bags) do
     cond do
       bag == @bag -> true
       Enum.member?(checked, bag) -> false
-      true -> Enum.any?(bags, &(contain?(rules, &1, [bag | checked], rules[&1] |> Map.keys)))
+      true -> Enum.any?(bags, &contain?(rules, &1, [bag | checked], rules[&1] |> Map.keys()))
     end
   end
 end

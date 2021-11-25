@@ -13,12 +13,12 @@ defmodule AoC2020.Day08.Part1 do
   end
 
   defp exec(code) do
-    %BootCode{code: code}
-    |> Stream.iterate(&step/1)
+    {:ok, %BootCode{code: code}}
+    |> Stream.iterate(fn {_, prog} -> step(prog) end)
     |> Enum.reduce_while({0, []}, &detect/2)
   end
 
-  defp detect(prog, {accumulator, positions}) do
+  defp detect({:ok, prog}, {accumulator, positions}) do
     if Enum.member?(positions, prog.position) do
       {:halt, accumulator}
     else

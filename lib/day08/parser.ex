@@ -8,7 +8,7 @@ defmodule AoC2020.Day08.Parser do
     ascii_string([?a..?z], 3)
     |> tag(:op)
 
-  argument = 
+  argument =
     ignore(optional(ascii_char([?+])))
     |> optional(ascii_char([?-]))
     |> integer(min: 1)
@@ -30,7 +30,7 @@ defmodule AoC2020.Day08.Parser do
     |> concat(argument)
     |> eos()
 
-  defparsec :parse, instruction
+  defparsec(:parse, instruction)
 
   def code_parser(data) do
     data

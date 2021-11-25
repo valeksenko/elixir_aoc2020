@@ -4,14 +4,22 @@ defmodule AoC2020.Day08.BootCode do
     defstruct @enforce_keys
   end
 
-  defstruct [accumulator: 0, code: [], position: 0]
+  defstruct accumulator: 0, code: [], position: 0
 
   def step(prog) do
-    prog |> current |> exec_op(prog)
+    prog |> next |> exec_next(prog)
   end
 
-  def current(prog) do
-    Enum.fetch!(prog.code, prog.position)
+  def next(prog) do
+    Enum.fetch(prog.code, prog.position)
+  end
+
+  def exec_next({:ok, op}, prog) do
+    {:ok, exec_op(op, prog)}
+  end
+
+  def exec_next(:error, prog) do
+    {:halt, prog}
   end
 
   def exec_op(%Instruction{op: "nop"}, prog) do

@@ -14,20 +14,18 @@ defmodule AoC2020.Day07.Parser do
     |> tag(:bag)
 
   bag_content =
-    choice(
-      [
-        ignore(string("no other bags")),
-        times(
-          integer(min: 1)
-          |> ignore(whitespace)
-          |> concat(bag)
-          |> wrap()
-          |> map({List, :to_tuple, []})
-          |> ignore(optional(ascii_char([?,]) |> concat(whitespace))),
-          min: 0
-        )
-      ]
-    )
+    choice([
+      ignore(string("no other bags")),
+      times(
+        integer(min: 1)
+        |> ignore(whitespace)
+        |> concat(bag)
+        |> wrap()
+        |> map({List, :to_tuple, []})
+        |> ignore(optional(ascii_char([?,]) |> concat(whitespace))),
+        min: 0
+      )
+    ])
 
   # Example: "light red bags contain 1 bright white bag, 2 muted yellow bags."
   rule =
@@ -37,17 +35,17 @@ defmodule AoC2020.Day07.Parser do
     |> ignore(ascii_char([?.]))
     |> eos()
 
-  defparsec :parse, rule
+  defparsec(:parse, rule)
 
   def bag_parser(data) do
     data
     |> Enum.map(&parse/1)
     |> Enum.map(&to_bag/1)
-    |> Map.new
+    |> Map.new()
   end
 
   defp to_bag({:ok, [bag: [modifier: mod, color: color], content: bags], _, _, _, _}) do
-    content = bags |> Enum.map(&to_content/1) |> Map.new
+    content = bags |> Enum.map(&to_content/1) |> Map.new()
 
     {{mod, color}, content}
   end

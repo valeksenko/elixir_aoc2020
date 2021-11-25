@@ -13,7 +13,11 @@ defmodule AoC2020.Day07.Part2 do
   end
 
   defp collect(rules, content, total) do
-    count = content |> Enum.map(fn {bag, amount} -> amount * collect(rules, rules[bag], 1) end) |> Enum.sum
+    count =
+      content
+      |> Enum.map(fn {bag, amount} -> amount * collect(rules, rules[bag], 1) end)
+      |> Enum.sum()
+
     total + count
   end
 end
