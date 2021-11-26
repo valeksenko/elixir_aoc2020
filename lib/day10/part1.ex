@@ -15,7 +15,9 @@ defmodule AoC2020.Day10.Part1 do
 
   def count(data, step) do
     data
-    |> Enum.reduce({0, 0}, fn curr, {prev, amount} -> if (curr - prev) == step, do: {curr, amount + 1}, else: {curr, amount} end)
+    |> Enum.reduce({0, 0}, fn curr, {prev, amount} ->
+      if curr - prev == step, do: {curr, amount + 1}, else: {curr, amount}
+    end)
     |> elem(1)
   end
 end
