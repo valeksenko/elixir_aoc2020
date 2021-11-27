@@ -1,4 +1,4 @@
-defmodule AoC2020.Day11.Part1 do
+defmodule AoC2020.Day11.Part2 do
   import AoC2020.Day11.SeatLayout
 
   @behaviour AoC2020.Day
@@ -23,16 +23,25 @@ defmodule AoC2020.Day11.Part1 do
       case val do
         @floor -> new
         @free -> if taken(old, pos) == 0, do: Map.put(new, pos, @occupied), else: new
-        @occupied -> if taken(old, pos) > 3, do: Map.put(new, pos, @free), else: new
+        @occupied -> if taken(old, pos) > 4, do: Map.put(new, pos, @free), else: new
       end
 
     {old, updated}
   end
 
-  defp taken(map, {x, y}) do
+  defp taken(map, pos) do
     neighbors()
-    |> Enum.map(fn {xd, yd} -> Map.get(map, {x + xd, y + yd}) end)
-    |> Enum.count(&(&1 == @occupied))
+    |> Enum.count(&taken?(map, pos, &1))
+  end
+
+  defp taken?(map, {x, y}, {xd, yd}) do
+    pos = {x + xd, y + yd}
+
+    case Map.get(map, pos) do
+      @occupied -> true
+      @floor -> taken?(map, pos, {xd, yd})
+      _ -> false
+    end
   end
 
   defp neighbors do
