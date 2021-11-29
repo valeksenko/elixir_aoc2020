@@ -6,7 +6,7 @@ defmodule AoC2020.Day14.Part2 do
   @behaviour AoC2020.Day
 
   @bitsize 36
-  @max trunc(:math.pow(2, @bitsize)) - 1
+  @max_mask Integer.pow(2, @bitsize) - 1
 
   @impl AoC2020.Day
   def run(data) do
@@ -37,7 +37,7 @@ defmodule AoC2020.Day14.Part2 do
     shift = 1 <<< bit
 
     result
-    |> Enum.flat_map(fn num -> [num &&& bxor(@max, shift), num ||| shift] end)
+    |> Enum.flat_map(fn num -> [num &&& bxor(@max_mask, shift), num ||| shift] end)
   end
 
   defp to_masks(mask) do
