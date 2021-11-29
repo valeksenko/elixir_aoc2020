@@ -2,6 +2,8 @@ defmodule AoC2020.Day15.Part1 do
   @behaviour AoC2020.Day
 
   @amount 2020
+  # part2 takes less than a minute
+  # @amount 30000000
 
   @impl AoC2020.Day
   def run(data) do
