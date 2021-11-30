@@ -1,6 +1,10 @@
 defmodule TestHelper do
+  def read_example_file(name) do
+    File.read!("data/examples/#{name}.txt")
+  end
+
   def read_example(name, trim \\ true) do
-    File.read!("data/examples/#{name}.txt") |> String.split("\n", trim: trim)
+    read_example_file(name) |> String.split("\n", trim: trim)
   end
 end
 
