@@ -1,4 +1,4 @@
-defmodule AoC2020.Day17.Part1 do
+defmodule AoC2020.Day17.Part2 do
   import AoC2020.Day17.Dimension
 
   @behaviour AoC2020.Day
@@ -7,7 +7,7 @@ defmodule AoC2020.Day17.Part1 do
   @inactive "."
 
   @cycles 6
-  @dimensions 3
+  @dimensions 4
 
   @impl AoC2020.Day
   def run(data) do
@@ -58,13 +58,13 @@ defmodule AoC2020.Day17.Part1 do
     end)
   end
 
-  defp active(map, {x, y, z}) do
+  defp active(map, {x, y, z, d}) do
     neighbors()
-    |> Enum.map(fn {xd, yd, zd} -> Map.get(map, {x + xd, y + yd, z + zd}) end)
+    |> Enum.map(fn {xd, yd, zd, dd} -> Map.get(map, {x + xd, y + yd, z + zd, d + dd}) end)
     |> Enum.count(&(&1 == @active))
   end
 
   defp neighbors do
-    for xd <- -1..1, yd <- -1..1, zd <- -1..1, {xd, yd, zd} != {0, 0, 0}, do: {xd, yd, zd}
+    for xd <- -1..1, yd <- -1..1, zd <- -1..1, dd <- -1..1, {xd, yd, zd, dd} != {0, 0, 0, 0}, do: {xd, yd, zd, dd}
   end
 end
