@@ -65,6 +65,11 @@ defmodule AoC2020.Day17.Part2 do
   end
 
   defp neighbors do
-    for xd <- -1..1, yd <- -1..1, zd <- -1..1, dd <- -1..1, {xd, yd, zd, dd} != {0, 0, 0, 0}, do: {xd, yd, zd, dd}
+    for xd <- -1..1,
+        yd <- -1..1,
+        zd <- -1..1,
+        dd <- -1..1,
+        {xd, yd, zd, dd} != {0, 0, 0, 0},
+        do: {xd, yd, zd, dd}
   end
 end

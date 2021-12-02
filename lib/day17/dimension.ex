@@ -9,7 +9,9 @@ defmodule AoC2020.Day17.Dimension do
     row
     |> String.graphemes()
     |> Enum.with_index()
-    |> Enum.reduce(map, fn {v, x}, m -> Map.put(m, (3..total) |> Enum.reduce({x, y}, &add_tuple/2), v) end)
+    |> Enum.reduce(map, fn {v, x}, m ->
+      Map.put(m, 3..total |> Enum.reduce({x, y}, &add_tuple/2), v)
+    end)
   end
 
   defp add_tuple(_, tuple) do
