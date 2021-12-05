@@ -10,12 +10,14 @@ defmodule Mix.Tasks.Day do
     module =
       Module.safe_concat(~w[ Elixir AoC2020 Day#{String.pad_leading(day, 2, "0")} Part#{part} ])
 
-    case File.read("data/day#{String.pad_leading(day, 2, "0")}.txt") do
+    file =
+      ["_#{part}", ""]
+      |> Enum.map(&"data/day#{String.pad_leading(day, 2, "0")}#{&1}.txt")
+      |> Enum.find(&File.exists?(&1))
+
+    case File.read(file) do
       {:ok, content} ->
         apply(module, :run, [to_content(day, content)])
-
-      {:error, _} ->
-        apply(module, :run, [[]])
     end
     |> IO.puts()
   end
