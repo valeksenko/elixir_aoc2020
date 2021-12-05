@@ -18,15 +18,6 @@ defmodule AoC2020.Day18.Part2 do
     |> elem(1)
   end
 
-  defp calc([], prev) do
-    total =
-      [@add, @prod]
-      |> Enum.reduce(prev, &calc_op/2)
-      |> hd
-
-    {[], total}
-  end
-
   defp calc_op(op, code) do
     [init | stack] = Enum.reverse(code)
 
@@ -35,6 +26,15 @@ defmodule AoC2020.Day18.Part2 do
     |> Enum.reduce([init], fn [o, n1], [n2 | reminder] ->
       if o == op, do: [o.(n1, n2) | reminder], else: [n1, o, n2] ++ reminder
     end)
+  end
+
+  defp calc([], prev) do
+    total =
+      [@add, @prod]
+      |> Enum.reduce(prev, &calc_op/2)
+      |> hd
+
+    {[], total}
   end
 
   defp calc([op | reminder], prev) do
