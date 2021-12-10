@@ -5,6 +5,6 @@ defmodule AoC2020.Day20.Part1Test do
   import TestHelper
 
   test "checks for sample input" do
-    assert 20899048083289 == run(read_example_file(:day20))
+    assert 20_899_048_083_289 == run(read_example_file(:day20))
   end
 end

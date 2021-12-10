@@ -34,7 +34,7 @@ defmodule AoC2020.Day20.Parser do
 
   defp to_tiles({:ok, tiles, "", _, _, _}) do
     tiles
-    |> Enum.reduce(Map.new, &add_tile/2)
+    |> Enum.reduce(Map.new(), &add_tile/2)
   end
 
   defp add_tile({:tile, [{:id, [id]} | rows]}, map) do
